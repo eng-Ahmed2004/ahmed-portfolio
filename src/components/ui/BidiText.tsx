@@ -5,8 +5,9 @@ const ARABIC_RUN = /([؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]+(?:\s+[؀-ۿݐ-ݿࢠ-ࣿ�
 
 /**
  * Renders text that may mix scripts, e.g. "Tilqaa – تلقاء". Arabic runs get
- * `lang="ar"` and the Arabic typeface, so they look right inside English
- * copy and are announced correctly by screen readers.
+ * `lang="ar"`: screen readers pronounce them correctly, and the global
+ * `:lang(ar)` rule keeps heading tracking off them so letters stay joined.
+ * (The Arabic typeface comes from the shared font stack, not from this span.)
  */
 export function BidiText({ children }: { children: string }) {
   const parts = children.split(ARABIC_RUN);
@@ -14,7 +15,7 @@ export function BidiText({ children }: { children: string }) {
 
   return parts.map((part, index) =>
     index % 2 === 1 ? (
-      <span key={index} lang="ar" className="font-arabic">
+      <span key={index} lang="ar">
         {part}
       </span>
     ) : (

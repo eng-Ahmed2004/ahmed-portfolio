@@ -40,7 +40,7 @@ export function Contact() {
               <a
                 href={buildMailtoLink()}
                 dir="ltr"
-                className="font-display text-lg font-medium break-all text-fg underline decoration-line-strong decoration-1 underline-offset-[6px] transition-colors duration-300 hover:decoration-accent sm:text-2xl"
+                className="text-lg font-medium break-all text-fg underline decoration-line-strong decoration-1 underline-offset-[6px] transition-colors duration-300 hover:decoration-accent sm:text-2xl"
               >
                 {profile.email}
               </a>

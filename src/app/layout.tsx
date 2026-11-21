@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Sans_Arabic, JetBrains_Mono, Manrope, Sora } from "next/font/google";
+import { IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
+import type { CSSProperties } from "react";
 import "./globals.css";
 import { Providers } from "@/components/layout/Providers";
 import { profile } from "@/data/profile";
@@ -7,37 +8,47 @@ import en from "@/i18n/dictionaries/en";
 import { bootScript } from "@/lib/preferences";
 import { siteUrl, themeColors } from "@/lib/site";
 
-const sora = Sora({
-  variable: "--font-sora",
+// The site uses exactly two typefaces, combined into ONE font-family stack
+// (`--font-sans` in globals.css): Inter first, then IBM Plex Sans Arabic.
+// Inter only contains Latin glyphs, so every Arabic character falls through
+// to IBM Plex Sans Arabic automatically — no per-language switching needed.
+
+// Weights 300–700, the only ones the design uses. (next/font cannot limit a
+// variable font to a weight range, so the five weights are listed explicitly
+// instead of downloading the full 100–900 variable file.) All five appear
+// above the fold, so they are preloaded.
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
-  display: "swap",
-  preload: false,
-});
-
-// Listed first in every font stack (see globals.css). Its files only cover
-// Arabic code points, so Latin text falls through to the Latin faces. The
-// automatic Arial-based fallback must stay off: it would catch Latin text
-// before the Latin faces get a chance.
+// Same weights. Not preloaded: English visitors never need it, and the
+// browser fetches it on demand the first time Arabic text is rendered.
 const plexArabic = IBM_Plex_Sans_Arabic({
   variable: "--font-plex-arabic",
   subsets: ["arabic"],
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
   preload: false,
-  adjustFontFallback: false,
 });
+
+/**
+ * next/font describes each font as "Name, Name Fallback", where the Fallback
+ * face is a local Arial that claims EVERY code point (this is emitted even
+ * with `adjustFontFallback: false`). Using that stack as-is would put the
+ * Arial fallback ahead of IBM Plex Sans Arabic, so Arabic text would render
+ * in Arial. Only the real face name (the first entry) is exposed here, and
+ * globals.css builds the combined stack from those two names.
+ */
+const faceName = (font: { style: { fontFamily: string } }) =>
+  font.style.fontFamily.split(",")[0].trim();
+
+const fontFaces = {
+  "--face-latin": faceName(inter),
+  "--face-arabic": faceName(plexArabic),
+} as CSSProperties;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -123,7 +134,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       dir="ltr"
       data-theme="dark"
-      className={`${sora.variable} ${manrope.variable} ${jetbrainsMono.variable} ${plexArabic.variable}`}
+      className={`${inter.variable} ${plexArabic.variable}`}
+      style={fontFaces}
       // The boot script may change lang/dir/theme before React hydrates.
       suppressHydrationWarning
     >

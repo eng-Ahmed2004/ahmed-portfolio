@@ -85,24 +85,6 @@
   --device: #0f172a;
 }
 
-/* ------------------------------------------------------------------ *
- * Typography
- * English: Sora (display), Manrope (text), JetBrains Mono (labels).
- * Arabic: IBM Plex Sans Arabic leads every stack, so Arabic copy and the
- * Latin words inside it share one typeface.
- * ------------------------------------------------------------------ */
-:root {
-  --ff-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --ff-display: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
-  --ff-mono: var(--font-jetbrains), ui-monospace, monospace;
-}
-
-html[lang="ar"] {
-  --ff-sans: var(--font-plex-arabic), var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --ff-display: var(--font-plex-arabic), var(--font-sora), ui-sans-serif, system-ui, sans-serif;
-  --ff-mono: var(--font-plex-arabic), var(--font-jetbrains), ui-monospace, monospace;
-}
-
 @theme inline {
   --color-bg: var(--bg);
   --color-bg-elevated: var(--bg-elevated);
@@ -124,10 +106,14 @@ html[lang="ar"] {
   --color-danger: var(--danger);
   --color-device: var(--device);
 
-  /* Resolved at runtime from the --ff-* stacks below, which depend on language. */
-  --font-sans: var(--ff-sans);
-  --font-display: var(--ff-display);
-  --font-mono: var(--ff-mono);
+  /* The one font stack for the whole site (headings, buttons, lists, forms).
+     Inter covers Latin text; Arabic glyphs are missing from it, so they fall
+     through to IBM Plex Sans Arabic. --face-latin / --face-arabic hold the
+     real face names and are set on <html> in app/layout.tsx (which explains
+     why next/font's own --font-* variables are not used here). */
+  --font-sans:
+    var(--face-latin), var(--face-arabic), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
 
   --shadow-soft: var(--elev-soft);
   --shadow-lift: var(--elev-lift);
@@ -237,12 +223,18 @@ html[lang="ar"] {
     opacity: 0;
   }
 
-  /* Arabic needs more vertical room and must never be letter-spaced,
-     because tracking breaks the joins between letters. */
+  /* Arabic needs more vertical room. */
   html[lang="ar"] body {
     line-height: 1.9;
   }
-  html[lang="ar"] * {
+
+  /* Arabic must never be letter-spaced: any tracking — negative or positive —
+     breaks the joins between the letters of a word. `:lang(ar)` matches the
+     whole page in Arabic mode AND Arabic runs inside English text (project
+     titles, the Arabic name), and `!important` beats every tracking-* utility
+     and the display-heading tightening below. */
+  :lang(ar),
+  :lang(ar) * {
     letter-spacing: 0 !important;
   }
 
@@ -250,8 +242,17 @@ html[lang="ar"] {
   h2,
   h3,
   h4 {
-    font-family: var(--font-display);
     text-wrap: balance;
+  }
+
+  /* Form controls and buttons ship with the system font in browsers; make
+     sure they use the site stack in every browser. */
+  button,
+  input,
+  select,
+  textarea,
+  optgroup {
+    font-family: inherit;
   }
 
   p {
@@ -299,11 +300,6 @@ html[lang="ar"] {
   }
 }
 
-/* For Arabic words that appear inside the English version of the site. */
-@utility font-arabic {
-  font-family: var(--font-plex-arabic), ui-sans-serif, system-ui, sans-serif;
-}
-
 @utility text-gradient {
   background-image: linear-gradient(115deg, var(--accent-text), var(--accent-2-text));
   -webkit-background-clip: text;
@@ -324,11 +320,10 @@ html[lang="ar"] {
 }
 
 @utility eyebrow {
-  font-family: var(--font-mono);
   font-size: 0.75rem;
   line-height: 1.4;
-  font-weight: 500;
-  letter-spacing: 0.2em;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent-text);
 
@@ -338,12 +333,12 @@ html[lang="ar"] {
   }
 }
 
-/* Display headings: tight in Latin, relaxed in Arabic. */
+/* Display headings: tight in Latin, relaxed in Arabic (tracking is forced to
+   zero for Arabic by the `:lang(ar)` rule in the base layer). */
 @utility heading-display {
-  font-family: var(--font-display);
   font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
 
   :where([lang="ar"]) & {
     line-height: 1.4;

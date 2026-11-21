@@ -51,7 +51,7 @@ export function Certifications() {
             )}
 
             <div className="min-w-0 flex-1">
-              <p dir="ltr" className="font-mono text-xs text-fg-muted rtl:text-end">
+              <p dir="ltr" className="text-xs font-medium tabular-nums text-fg-muted rtl:text-end">
                 {String(index + 1).padStart(2, "0")}
               </p>
               <h3 className="mt-1.5 text-lg font-semibold text-fg">

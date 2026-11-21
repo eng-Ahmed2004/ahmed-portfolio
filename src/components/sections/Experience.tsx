@@ -42,7 +42,7 @@ export function Experience() {
                 </span>
 
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                  <p className="font-mono text-xs text-accent-text sm:text-sm">{t(item.period)}</p>
+                  <p className="text-xs font-medium tabular-nums text-accent-text sm:text-sm">{t(item.period)}</p>
                   {item.current ? (
                     <span className="inline-flex items-center gap-1.5 rounded-full border border-success/40 px-2.5 py-0.5 text-xs font-medium text-success">
                       <span aria-hidden="true" className="size-1.5 rounded-full bg-success" />
@@ -55,7 +55,7 @@ export function Experience() {
                 <p className="mt-1 text-sm text-fg-soft sm:text-base">{t(item.organization)}</p>
 
                 {item.highlight ? (
-                  <p className="mt-4 border-s-2 border-accent ps-4 font-display text-base font-medium text-fg sm:text-lg">
+                  <p className="mt-4 border-s-2 border-accent ps-4 text-base font-medium text-fg sm:text-lg">
                     {t(item.highlight)}
                   </p>
                 ) : null}

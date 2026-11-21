@@ -20,7 +20,7 @@ export function About() {
 
       <div className="mt-12 grid gap-8 lg:mt-16 lg:grid-cols-12 lg:gap-16">
         <Reveal className="lg:col-span-5">
-          <p className="border-s-2 border-accent ps-6 font-display text-xl leading-relaxed font-light text-fg sm:text-2xl sm:leading-relaxed">
+          <p className="border-s-2 border-accent ps-6 text-xl leading-relaxed font-light text-fg sm:text-2xl sm:leading-relaxed">
             {about.lead}
           </p>
         </Reveal>

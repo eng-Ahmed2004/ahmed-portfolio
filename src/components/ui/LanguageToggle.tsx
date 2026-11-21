@@ -20,7 +20,6 @@ export function LanguageToggle({ className }: { className?: string }) {
         "inline-flex h-11 shrink-0 items-center gap-2 rounded-full px-3 text-sm font-medium text-fg-soft",
         "transition-[background-color,color,transform] duration-300 ease-settle",
         "hover:bg-surface-hover hover:text-fg active:scale-95",
-        targetLocale === "ar" && "font-arabic",
         className,
       )}
     >

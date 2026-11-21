@@ -47,7 +47,7 @@ export function ProjectCard({ project, onOpen }: ProjectCardProps) {
       </div>
 
       <div className="flex flex-1 flex-col p-6 sm:p-7">
-        <p className="font-mono text-xs text-fg-muted">{t(project.context)}</p>
+        <p className="text-xs text-fg-muted">{t(project.context)}</p>
         <h3 className="mt-2 text-xl font-semibold text-fg">
           <BidiText>{title}</BidiText>
         </h3>

@@ -49,7 +49,7 @@ export function FeaturedProject({ project, onOpen }: FeaturedProjectProps) {
             >
               <BidiText>{title}</BidiText>
             </h3>
-            <p className="mt-3 font-mono text-xs text-fg-muted sm:text-sm">{t(project.context)}</p>
+            <p className="mt-3 text-xs text-fg-muted sm:text-sm">{t(project.context)}</p>
 
             <p className="mt-6 text-base text-fg-soft sm:text-lg">{t(project.description)}</p>
 

@@ -125,7 +125,7 @@ export function Projects() {
                 <GitHubIcon className="size-5" />
               </span>
               <span className="mt-10 block">
-                <span className="block font-display text-2xl font-semibold text-fg">
+                <span className="block text-2xl font-semibold text-fg">
                   {labels.moreTitle}
                 </span>
                 <span className="mt-3 block max-w-sm text-sm text-fg-muted">{labels.moreText}</span>

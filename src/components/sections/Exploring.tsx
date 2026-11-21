@@ -58,7 +58,7 @@ export function Exploring() {
                 <span className="grid size-10 place-items-center rounded-full bg-accent/12 text-accent-text">
                   <Icon name={item.icon} className="size-5" />
                 </span>
-                <span className="font-display text-base font-medium text-fg sm:text-lg">
+                <span className="text-base font-medium text-fg sm:text-lg">
                   {t(item.title)}
                 </span>
                 <Signal offset={index} />

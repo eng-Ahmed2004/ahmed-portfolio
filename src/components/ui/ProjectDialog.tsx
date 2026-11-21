@@ -94,7 +94,7 @@ function DialogContent({ project, onClose }: { project: Project; onClose: () => 
     <>
       <header className="flex items-start justify-between gap-4 border-b border-line p-5 sm:p-7">
         <div>
-          <p className="font-mono text-xs text-fg-muted">{t(project.context)}</p>
+          <p className="text-xs text-fg-muted">{t(project.context)}</p>
           <h2
             id="project-dialog-title"
             className="heading-display mt-2 text-2xl text-fg sm:text-3xl"

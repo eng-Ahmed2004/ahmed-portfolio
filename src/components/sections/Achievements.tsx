@@ -39,7 +39,7 @@ export function Achievements() {
                   <Icon name={achievement.icon} className="size-6" />
                 </span>
               </span>
-              <span dir="ltr" className="font-mono text-xs text-fg-muted">
+              <span dir="ltr" className="text-xs font-medium tabular-nums text-fg-muted">
                 {String(index + 1).padStart(2, "0")}
               </span>
             </div>

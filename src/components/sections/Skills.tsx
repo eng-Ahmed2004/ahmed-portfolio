@@ -38,7 +38,7 @@ export function Skills() {
                 <Icon name={category.icon} className="size-5" />
               </span>
               <div>
-                <p dir="ltr" className="font-mono text-xs text-fg-muted rtl:text-end">
+                <p dir="ltr" className="text-xs font-medium tabular-nums text-fg-muted rtl:text-end">
                   {String(index + 1).padStart(2, "0")}
                 </p>
                 <h3 className="mt-1 text-lg font-semibold text-fg">{t(category.title)}</h3>
