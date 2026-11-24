@@ -61,7 +61,7 @@ Append an object to the array in `src/data/projects.ts`. It appears in the grid,
 
 ### Add certificate proof
 
-In `src/data/certifications.ts`, add `image: "/images/certifications/<file>.jpg"` and/or `verifyUrl: "https://…"` to an entry. The image and the "Verify credential" link only render when they exist.
+In `src/data/certifications.ts`, add `image: "/images/certifications/<file>.jpg"` and/or `verifyUrl: "https://…"` to an entry. The image and the "Verify credential" link only render when they exist. When `verifyUrl` is set, the whole card links to that page (opens in a new tab).
 
 ### Replace the CV
 

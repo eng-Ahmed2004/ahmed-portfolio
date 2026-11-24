@@ -7,7 +7,7 @@ import { Section, SectionHeading } from "@/components/ui/Section";
 import { certifications } from "@/data/certifications";
 import { useI18n } from "@/i18n/I18nProvider";
 import { fade } from "@/lib/motion";
-import { externalLinkProps } from "@/lib/utils";
+import { cn, externalLinkProps } from "@/lib/utils";
 
 export function Certifications() {
   const { dict, t } = useI18n();
@@ -34,7 +34,12 @@ export function Certifications() {
             as="li"
             key={certification.id}
             variants={fade}
-            className="group flex items-start gap-5 bg-bg p-6 transition-colors duration-500 hover:bg-surface sm:p-8 md:last:odd:col-span-2"
+            className={cn(
+              "group relative flex items-start gap-5 bg-bg p-6 transition-colors duration-500 hover:bg-surface sm:p-8 md:last:odd:col-span-2",
+              // Linked cards show the keyboard focus ring around the whole card.
+              certification.verifyUrl &&
+                "has-[a:focus-visible]:bg-surface has-[a:focus-visible]:outline-2 has-[a:focus-visible]:-outline-offset-2 has-[a:focus-visible]:outline-accent",
+            )}
           >
             {certification.image ? (
               <Image
@@ -70,17 +75,22 @@ export function Certifications() {
               </p>
 
               {certification.verifyUrl ? (
+                // Stretched link: the ::after layer covers the whole card, so
+                // clicking anywhere on it opens the certificate page.
                 <a
                   href={certification.verifyUrl}
-                  className="mt-4 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-accent-text transition-colors duration-300 hover:text-fg"
+                  className="mt-4 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-accent-text transition-colors duration-300 group-hover:text-fg after:absolute after:inset-0 focus-visible:outline-none"
                   {...externalLinkProps}
                 >
                   {dict.certifications.verify}
-                  <span className="sr-only">{dict.a11y.newTab}</span>
+                  <span className="sr-only">
+                    {" — "}
+                    {t(certification.name)} {dict.a11y.newTab}
+                  </span>
                   <ArrowUpRight
                     aria-hidden="true"
                     strokeWidth={1.8}
-                    className="size-4 rtl:-scale-x-100"
+                    className="size-4 transition-transform duration-300 ease-settle group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5"
                   />
                 </a>
               ) : null}
