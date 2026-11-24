@@ -94,11 +94,11 @@ export function MobileMenu({ open, active, onClose }: MobileMenuProps) {
                     onClick={onClose}
                     aria-current={active === item.id ? "true" : undefined}
                     className={cn(
-                      "flex items-baseline gap-4 py-4 text-2xl font-medium transition-colors duration-300",
+                      "flex items-baseline gap-4 py-4 font-display text-xl font-medium transition-colors duration-300",
                       active === item.id ? "text-fg" : "text-fg-muted hover:text-fg",
                     )}
                   >
-                    <span dir="ltr" className="w-7 text-xs font-medium tabular-nums text-accent-text">
+                    <span dir="ltr" className="w-7 font-mono text-xs text-accent-text">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     {t(item.label)}

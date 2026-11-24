@@ -60,7 +60,7 @@ export function Navbar() {
             className="group flex items-center gap-3 rounded-xl"
           >
             <Logo className="transition-transform duration-500 ease-settle group-hover:rotate-[-6deg] group-hover:scale-105" />
-            <span className="hidden text-sm font-semibold text-fg sm:block">
+            <span className="hidden font-display text-[0.8rem] font-semibold text-fg sm:block">
               {t(profile.shortName)}
             </span>
           </a>

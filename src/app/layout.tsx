@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
+import { JetBrains_Mono, Lexend, Readex_Pro, Unbounded } from "next/font/google";
 import type { CSSProperties } from "react";
 import "./globals.css";
 import { Providers } from "@/components/layout/Providers";
@@ -8,46 +8,67 @@ import en from "@/i18n/dictionaries/en";
 import { bootScript } from "@/lib/preferences";
 import { siteUrl, themeColors } from "@/lib/site";
 
-// The site uses exactly two typefaces, combined into ONE font-family stack
-// (`--font-sans` in globals.css): Inter first, then IBM Plex Sans Arabic.
-// Inter only contains Latin glyphs, so every Arabic character falls through
-// to IBM Plex Sans Arabic automatically — no per-language switching needed.
+// Typography: Lexend (English text) + Readex Pro (Arabic text) form ONE
+// font-family stack (`--font-sans` in globals.css). Lexend has no Arabic
+// glyphs, so every Arabic character falls through to Readex Pro on its own;
+// the two are designed as a pair. Unbounded is the wide display face for big
+// headings and JetBrains Mono is for small labels — both fall through to
+// Readex Pro for Arabic as well.
+//
+// Weights are listed explicitly because next/font cannot limit a variable
+// font to a range. Google serves ONE variable file per font, so listing five
+// weights does not mean five downloads.
 
-// Weights 300–700, the only ones the design uses. (next/font cannot limit a
-// variable font to a weight range, so the five weights are listed explicitly
-// instead of downloading the full 100–900 variable file.) All five appear
-// above the fold, so they are preloaded.
-const inter = Inter({
-  variable: "--font-inter",
+// Body and UI text. Preloaded: it is on screen immediately.
+const lexend = Lexend({
+  variable: "--font-lexend",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
-// Same weights. Not preloaded: English visitors never need it, and the
-// browser fetches it on demand the first time Arabic text is rendered.
-const plexArabic = IBM_Plex_Sans_Arabic({
-  variable: "--font-plex-arabic",
+// Arabic text. Not preloaded: English visitors never need it, and the browser
+// fetches it on demand the first time Arabic text is rendered.
+const readexPro = Readex_Pro({
+  variable: "--font-readex",
   subsets: ["arabic"],
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
   preload: false,
 });
 
+// Display headings (the name, section titles).
+const unbounded = Unbounded({
+  variable: "--font-unbounded",
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  display: "swap",
+});
+
+// Small uppercase labels, index numbers and dates.
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+});
+
 /**
  * next/font describes each font as "Name, Name Fallback", where the Fallback
  * face is a local Arial that claims EVERY code point (this is emitted even
- * with `adjustFontFallback: false`). Using that stack as-is would put the
- * Arial fallback ahead of IBM Plex Sans Arabic, so Arabic text would render
- * in Arial. Only the real face name (the first entry) is exposed here, and
- * globals.css builds the combined stack from those two names.
+ * with `adjustFontFallback: false`). Using those stacks as-is would put an
+ * Arial fallback ahead of Readex Pro, so Arabic text would render in Arial.
+ * Only the real face name (the first entry) is exposed here, and globals.css
+ * builds the combined stacks from these names.
  */
 const faceName = (font: { style: { fontFamily: string } }) =>
   font.style.fontFamily.split(",")[0].trim();
 
 const fontFaces = {
-  "--face-latin": faceName(inter),
-  "--face-arabic": faceName(plexArabic),
+  "--face-lexend": faceName(lexend),
+  "--face-readex": faceName(readexPro),
+  "--face-unbounded": faceName(unbounded),
+  "--face-mono": faceName(jetbrainsMono),
 } as CSSProperties;
 
 export const metadata: Metadata = {
@@ -134,7 +155,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       dir="ltr"
       data-theme="dark"
-      className={`${inter.variable} ${plexArabic.variable}`}
+      className={`${lexend.variable} ${readexPro.variable} ${unbounded.variable} ${jetbrainsMono.variable}`}
       style={fontFaces}
       // The boot script may change lang/dir/theme before React hydrates.
       suppressHydrationWarning

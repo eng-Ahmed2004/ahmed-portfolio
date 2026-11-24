@@ -48,7 +48,7 @@ export function Hero() {
           <m.h1
             id="hero-title"
             variants={fadeUp}
-            className="heading-display mt-7 text-[clamp(2.5rem,8.2vw,5.25rem)] text-fg"
+            className="heading-display mt-7 text-[clamp(1.8rem,5.2vw,4.2rem)] font-extrabold text-fg"
           >
             <span className="block">{firstLine}</span>
             <span className="text-gradient block pb-[0.14em]">{secondLine}</span>
@@ -65,7 +65,7 @@ export function Hero() {
 
           <m.p
             variants={fadeUp}
-            className="mt-7 flex h-8 items-center gap-3 text-[clamp(0.85rem,4vw,1.2rem)] font-medium text-accent-text"
+            className="mt-7 flex h-8 items-center gap-3 font-mono text-[clamp(0.8rem,3.9vw,1.125rem)] text-accent-text"
           >
             <span aria-hidden="true" className="bg-brand-gradient hidden h-px w-9 sm:block" />
             {/* Keyed by language so the animation restarts with the new words. */}
@@ -130,7 +130,7 @@ export function Hero() {
       >
         <div className="divider-fade" />
         <div className="mt-5 flex items-center justify-between gap-8">
-          <ul className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[0.7rem] font-medium tracking-[0.12em] text-fg-muted uppercase sm:text-xs rtl:text-xs rtl:normal-case sm:rtl:text-sm">
+          <ul className="flex flex-wrap items-center gap-x-4 gap-y-1.5 font-mono text-[0.7rem] tracking-[0.12em] text-fg-muted uppercase sm:text-xs rtl:text-xs rtl:normal-case sm:rtl:text-sm">
             {dict.hero.titles.map((title, index) => (
               <li key={title} className="flex items-center gap-4">
                 {index > 0 ? (
@@ -143,7 +143,7 @@ export function Hero() {
 
           <a
             href="#about"
-            className="hidden shrink-0 items-center gap-3 text-xs font-medium tracking-[0.12em] text-fg-muted uppercase transition-colors duration-300 hover:text-fg lg:inline-flex"
+            className="hidden shrink-0 items-center gap-3 font-mono text-xs tracking-[0.12em] text-fg-muted uppercase transition-colors duration-300 hover:text-fg lg:inline-flex"
           >
             {dict.hero.scrollHint}
             <span aria-hidden="true" className="relative h-8 w-px overflow-hidden bg-line-strong">

@@ -106,14 +106,22 @@
   --color-danger: var(--danger);
   --color-device: var(--device);
 
-  /* The one font stack for the whole site (headings, buttons, lists, forms).
-     Inter covers Latin text; Arabic glyphs are missing from it, so they fall
-     through to IBM Plex Sans Arabic. --face-latin / --face-arabic hold the
-     real face names and are set on <html> in app/layout.tsx (which explains
-     why next/font's own --font-* variables are not used here). */
+  /* Font stacks. Every stack lists a Latin face first and Readex Pro second:
+     the Latin faces have no Arabic glyphs, so Arabic characters fall through
+     to Readex Pro on their own, whatever the page language.
+     --face-* hold the real face names and are set on <html> in app/layout.tsx
+     (which explains why next/font's own --font-* variables are not used). */
+  /* Body, buttons, lists, forms: Lexend + Readex Pro. */
   --font-sans:
-    var(--face-latin), var(--face-arabic), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    var(--face-lexend), var(--face-readex), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     sans-serif;
+  /* Big headings: Unbounded (wide display face). */
+  --font-display:
+    var(--face-unbounded), var(--face-readex), var(--face-lexend), ui-sans-serif, system-ui,
+    sans-serif;
+  /* Small labels, numbers, dates: JetBrains Mono. */
+  --font-mono:
+    var(--face-mono), var(--face-readex), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --shadow-soft: var(--elev-soft);
   --shadow-lift: var(--elev-lift);
@@ -320,10 +328,11 @@
 }
 
 @utility eyebrow {
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   line-height: 1.4;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent-text);
 
@@ -336,9 +345,10 @@
 /* Display headings: tight in Latin, relaxed in Arabic (tracking is forced to
    zero for Arabic by the `:lang(ar)` rule in the base layer). */
 @utility heading-display {
-  font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
 
   :where([lang="ar"]) & {
     line-height: 1.4;

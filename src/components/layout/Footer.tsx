@@ -24,7 +24,7 @@ export function Footer() {
           <div className="max-w-sm">
             <a href="#home" aria-label={dict.a11y.homeLink} className="inline-flex items-center gap-3">
               <Logo />
-              <span className="font-semibold text-fg">{t(profile.shortName)}</span>
+              <span className="font-display text-sm font-semibold text-fg">{t(profile.shortName)}</span>
             </a>
             <p className="mt-4 text-sm text-fg-muted">{dict.footer.tagline}</p>
           </div>

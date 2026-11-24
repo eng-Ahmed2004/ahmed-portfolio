@@ -10,7 +10,7 @@ export default function NotFound() {
   return (
     <main className="container-page grid min-h-dvh place-items-center py-24 text-center">
       <div>
-        <p dir="ltr" className="text-gradient text-7xl font-semibold sm:text-8xl">
+        <p dir="ltr" className="text-gradient font-display text-7xl font-semibold sm:text-8xl">
           404
         </p>
         <h1 className="heading-display mt-6 text-3xl text-fg sm:text-4xl">{dict.notFound.title}</h1>

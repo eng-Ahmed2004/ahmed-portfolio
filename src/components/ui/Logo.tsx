@@ -10,7 +10,7 @@ export function Logo({ className }: { className?: string }) {
     >
       <span
         dir="ltr"
-        className="grid size-full place-items-center rounded-[calc(0.75rem-1px)] bg-bg text-sm font-semibold tracking-tight text-fg"
+        className="grid size-full place-items-center rounded-[calc(0.75rem-1px)] bg-bg font-display text-xs font-bold text-fg"
       >
         {profile.initials}
       </span>
