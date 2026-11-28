@@ -104,7 +104,8 @@ export interface ExperienceItem {
   icon: IconName;
   title: Localized;
   organization: Localized;
-  period: Localized;
+  /** Leave out when the dates are not known yet; the timeline then omits the line. */
+  period?: Localized;
   /** Optional highlighted line, e.g. a session title. */
   highlight?: Localized;
   description: Localized;

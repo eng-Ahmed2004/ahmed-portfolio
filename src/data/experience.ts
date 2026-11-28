@@ -23,6 +23,23 @@ export const experience: readonly ExperienceItem[] = [
     ],
   },
   {
+    id: "ieee-student-member",
+    icon: "cpu",
+    current: true,
+    title: { en: "IEEE Student Member", ar: "عضو طلابي في IEEE" },
+    // "IEEE Palestine Subsection" is the unit's official English name.
+    organization: { en: "IEEE Palestine Subsection", ar: "IEEE – فرع فلسطين" },
+    // No start date yet: add `period` here once it is known.
+    description: {
+      en: "An active member taking part in technical activities and professional development programs.",
+      ar: "عضو فاعل يشارك في الأنشطة التقنية وبرامج التطوير المهني.",
+    },
+    tags: [
+      { en: "Technical activities", ar: "أنشطة تقنية" },
+      { en: "Professional development", ar: "تطوير مهني" },
+    ],
+  },
+  {
     id: "git-github-session",
     icon: "mic",
     title: { en: "Technical Session Presenter", ar: "مقدّم جلسة تقنية" },
